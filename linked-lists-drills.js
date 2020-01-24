@@ -1,4 +1,6 @@
 const LL = require('./linked-lists');
+const _Node = require('./node');
+const DLL = require('./doubly-linked-lists');
 //1 - Create a linked list class
 
 //SEE LINKED-LISTS.JS//
@@ -24,6 +26,22 @@ function main() {
   return SLL;
 }
 
+function CycleList () {
+  let CLL = new LL();
+  CLL.insertLast('Apollo');
+  CLL.insertLast('Boomer');
+  CLL.insertLast('Starbuck');
+
+  function cycleNodes(node, nodeToLink) {
+    let currentNode = node;
+    currentNode.next = nodeToLink;
+  }
+
+  cycleNodes('Boomer', 'Apollo');
+  return CLL;
+}
+let CycledList = CycleList();
+console.log('Cycled list: ', CycledList);
 // list for testing supp functions:
 let testList = main();
 //3 - Supplemental functions for a linked list
@@ -155,7 +173,42 @@ function middleOfList(list) {
 console.log('middle elements of list: ', middleOfList(testList));
 
 //8 - Cycle in a list
+function cycle(node) {
+  let checker = {};
+  while (node.next) {
+    if(checker[node.value]) {
+      return true;
+    } else checker[node.value] = true;
+    node = node.next;
+  }
+  return false;
+}
+
+let nodeA = new _Node('A', 'B');
+let nodeB = nodeA.next = new _Node('B', 'C');
+let nodeC = nodeB.next = new _Node('C', 'D');
+let nodeD = nodeC.next = new _Node('D', 'E');
+let nodeE = nodeD.next = new _Node('E', 'B');
+nodeE.next = nodeA;
+
+console.log('Does it cycle? ', cycle(nodeA));
 
 //9 - Doubly linked list
+
+// add: Aquaria, Caprica, Gemenon, Picon, Sagittaron
+// add: Tauran
+// remove: Picon
+
+function dub() {
+  let dubL = new DLL();
+  dubL.insertLast('Aquaria');
+  dubL.insertLast('Caprica');
+  dubL.insertLast('Gemenon');
+  dubL.insertLast('Picon');
+  dubL.insertLast('Sagittaron');
+
+  return dubL;
+}
+console.log(dub());
 
 //10 - Reverse a DLL
