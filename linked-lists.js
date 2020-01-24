@@ -27,21 +27,21 @@ class LinkedList {
     if (this.head === null) {
       this.insertFirst(item);
     }
-    //if item to insert before is head
-    if (this.head.value === node) {
-      this.insertFirst(item);
+
+    if (node === this.head.value) {
+      return this.head = new _Node(item, this.head);
     }
 
     let after = node;
     let tempNode = this.head;
 
-    while(tempNode.next.value !== after) {
+    while(tempNode.value !== after) {
       tempNode = tempNode.next;
     }
-    tempNode.next = new _Node(item, after);
+    tempNode = new _Node(item, after);
   }
   
-  insertAfter(item, node) {
+  insertAfter(item, before) {
     //if list is empy
     if (this.head === null) {
       this.insertFirst(item);
@@ -50,33 +50,24 @@ class LinkedList {
     let after;
     //start at the head
     let tempNode = this.head;
-    console.log('head: ', tempNode);
 
-    while(tempNode.next !== null) {
-      if(tempNode.value === node) {
-        return;
-      }
+    while(tempNode.value !== before) {
       tempNode = tempNode.next;
-      console.log('current node: ', tempNode);
-      // after = tempNode.next;
     }
     after = tempNode.next;
-    console.log(after);
-    //make the next node the item to be inserted which links to the previously next node
-    // console.log(after.value);
-    // console.log(tempNode.value);
-    tempNode.next = new _Node(item, after.value);
-    // console.log(tempNode.next.value);
+    console.log(`Adding new node ${item} between ${before} and ${after.value}`);
+    tempNode.next = new _Node(item, after);
   }
 
   insertAt(item, position) {
     //start at the head
     let tempNode = this.head;
     let after;
-    for (let i = 1; i < position; i++) {
+    for (let i = 1; i < position - 1; i++) {
       tempNode = tempNode.next;
-      after = tempNode.next;
     }
+    after = tempNode.next;
+    console.log(`Adding ${item} after ${tempNode.value} before ${after.value}.`);
     tempNode.next = new _Node(item, after);
   }
   
@@ -115,6 +106,7 @@ class LinkedList {
 
     while ((currNode !== null) && (currNode.value !== item)) {
       //save the previous node
+      console.log(currNode);
       previousNode = currNode;
       currNode = currNode.next;
     }
