@@ -47,6 +47,7 @@ function size(list) {
     counter++;
   }
   console.log(`There are ${counter} in the list.`);
+  return counter;
 }
 
 size(testList);
@@ -81,8 +82,31 @@ function findLast(list) {
 findLast(testList);
 
 //4 - Mystery Program
+/* 
+  The mystery program:
+   - starts at the head of the list 
+   - if it has not reached the end, moves to the next node
+   - if the next node is not null, it moves to evaluate the contents of the node next to it
+   - it overwrites the contents of duplicated node values with the next node.
+   
+   In essence, it searches the list for duplicate nodes (adjacent) and deletes them.
+
+   */
 
 //5 - Reverse a list
+
+function reverse(head) {
+  if(head === null || head.next === null){
+    return head;
+  }   let newHead = reverse(head.next);
+  
+  head.next.next = head;
+  head.next = null;
+  return newHead;
+}
+
+console.log('reverse, reverse! ', reverse(testList.head));
+
 
 //6 - 3rd from the end
 
