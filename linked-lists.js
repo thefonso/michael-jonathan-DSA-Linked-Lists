@@ -56,7 +56,7 @@ class LinkedList {
     }
     after = tempNode.next;
     console.log(`Adding new node ${item} between ${before} and ${after.value}`);
-    tempNode.next = new _Node(item, after);
+    tempNode.next = new _Node(item, after.value);
   }
 
   insertAt(item, position) {

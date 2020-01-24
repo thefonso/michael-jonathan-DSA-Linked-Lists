@@ -26,22 +26,6 @@ function main() {
   return SLL;
 }
 
-function CycleList () {
-  let CLL = new LL();
-  CLL.insertLast('Apollo');
-  CLL.insertLast('Boomer');
-  CLL.insertLast('Starbuck');
-
-  function cycleNodes(node, nodeToLink) {
-    let currentNode = node;
-    currentNode.next = nodeToLink;
-  }
-
-  cycleNodes('Boomer', 'Apollo');
-  return CLL;
-}
-let CycledList = CycleList();
-console.log('Cycled list: ', CycledList);
 // list for testing supp functions:
 let testList = main();
 //3 - Supplemental functions for a linked list
@@ -108,6 +92,13 @@ findLast(testList);
    
    In essence, it searches the list for duplicate nodes (adjacent) and deletes them.
 
+   The time complexity of this algorithm is O(nlog(n)),
+   because for every increase in input, there must be additional computations, but not in an exponential fashion.
+   1 - 1
+   2 - 3
+   3 - 6
+   4 - 9
+   5 - 14  
    */
 
 //5 - Reverse a list
@@ -198,17 +189,49 @@ console.log('Does it cycle? ', cycle(nodeA));
 // add: Aquaria, Caprica, Gemenon, Picon, Sagittaron
 // add: Tauran
 // remove: Picon
-
+let dubL = new DLL();
 function dub() {
-  let dubL = new DLL();
-  dubL.insertLast('Aquaria');
+  dubL.insertFirst('Aquaria');
   dubL.insertLast('Caprica');
   dubL.insertLast('Gemenon');
-  dubL.insertLast('Picon');
-  dubL.insertLast('Sagittaron');
-
+  // dubL.insertLast('Picon');
+  // dubL.insertLast('Sagittaron');
+  dubL.insertAfter('Tauron', 'Caprica');
+  // dubL.remove('Picon');
   return dubL;
 }
-console.log(dub());
+
+let testDBL = dub();
 
 //10 - Reverse a DLL
+
+function reverseDbl(node) {
+  if(node === null){
+    return null;
+  } 
+  let temp = node.next;
+  node.next = node.prev;
+  node.prev = temp;
+
+  if (node.prev === null) {
+    return node;
+  }
+
+  let reverseList = reverseDbl(node.prev);
+  return reverseList;
+}
+
+let reversed = reverseDbl(testDBL.head);
+
+function displayDbl(head) {
+  let currNode = head;
+  while(currNode.next !== null) {
+    console.log('Node Contains: ', currNode.value);
+    currNode = currNode.next;
+  }
+  console.log('Node Contains: ', currNode.value);
+  console.log('End of list.');
+}
+
+displayDbl(reversed);
+

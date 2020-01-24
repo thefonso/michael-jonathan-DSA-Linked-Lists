@@ -7,7 +7,7 @@ class DoublyLinkedList {
   }
 
   insertFirst(item) {
-    this.head = new _doubleNode(item, null, null);
+    this.head = new _doubleNode(item, this.head, null);
   }
   
   insertLast(item) {
@@ -27,23 +27,119 @@ class DoublyLinkedList {
   }
 
   insertBefore(item, node) {
+    //if list is empy
+    if (this.head === null) {
+      this.insertFirst(item);
+    }
 
+    if (node === this.head.value) {
+      return this.head = new _doubleNode(item, this.head, null);
+    }
+
+    let tempNode = this.head;
+    let before, after;
+
+    while(tempNode.value !== node) {
+      tempNode = tempNode.next;
+    }
+    before = tempNode.prev;
+    after = tempNode;
+    before.next = new _doubleNode(item, tempNode, before);
+    after.prev = before.next;
+    console.log(`Adding ${item} before ${tempNode.value} but after ${before.value}`);
   }
 
   insertAfter(item, node) {
+    //if list is empy
+    if (this.head === null) {
+      this.insertFirst(item);
+    }  
+    //the value currently after the node where insertion is to occur
+    let after;
+    let before;
+    //start at the head
+    let tempNode = this.head;
 
+    while(tempNode.value !== node) {
+      tempNode = tempNode.next;
+    }
+    before = tempNode;
+
+    if(this.tail === before) {
+      after = null;
+      this.tail = new _doubleNode(item,after,before); 
+      before.next = this.tail;
+    } else {
+      after = tempNode.next;
+      before.next = new _doubleNode(item, before.next, before);
+      after.before = before.next;
+    }
+    console.log(`Adding new node ${item} between ${before.value} and ${after.value}`);
   }
 
   insertAt(item, position) {
-
+    if (position === 1) {
+      this.head = item;
+    }
+    //start at the head
+    let tempNode = this.head;
+    let after;
+    for (let i = 1; i < position - 1; i++) {
+      tempNode = tempNode.next;
+    }
+    after = tempNode.next;
+    tempNode.next = new _doubleNode(item, after, tempNode);
+    after.prev = tempNode.next;
+    console.log(`Adding ${item} after ${tempNode.value} before ${after.value}.`);
   }
 
   remove(item) {
+    //if the list is empty
+    if (!this.head) {
+      return null;
+    }
+    //if the node to be removed is head,
+    //make the next node head
+    if (this.head.value === item) {
+      this.head = this.head.next;
+      return;
+    }
+    if(this.tail.value === item) {
+      this.tail = this.tail.prev;
+    }
+    //start at the head
+    let currNode = this.head;
+    //keep track of the previous node
+    let previousNode = this.head;
 
+    while ((currNode !== null) && (currNode.value !== item)) {
+      //save the previous node
+      previousNode = currNode;
+      currNode = currNode.next;
+    }
+    if (currNode === null) {
+      console.log('Item not found');
+      return;
+    }
+    currNode.next.prev = previousNode;
+    previousNode.next = currNode.next;
   }
 
   find(item) {
-    
+    let currNode = this.head;
+
+    if (!this.head) {
+      return null;
+    }
+
+    while (currNode.value !== item) {
+      if (currNode.next === null) {
+        return null;
+      } else {
+        currNode = currNode.next;
+      }
+    }
+    return currNode;
   }
 
 }
