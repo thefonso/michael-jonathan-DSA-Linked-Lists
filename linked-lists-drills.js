@@ -25,7 +25,7 @@ function main() {
 }
 
 // list for testing supp functions:
-const testList = main();
+let testList = main();
 //3 - Supplemental functions for a linked list
 function display(list) {
   let currNode = list.head;
@@ -46,11 +46,10 @@ function size(list) {
     currNode = currNode.next;
     counter++;
   }
-  console.log(`There are ${counter} in the list.`);
   return counter;
 }
 
-size(testList);
+console.log(`there are ${size(testList)} elements in the list`);
 
 function isEmpty(list) {
   if (!list.head) {
@@ -96,6 +95,7 @@ findLast(testList);
 //5 - Reverse a list
 
 function reverse(head) {
+  console.log(head);
   if(head === null || head.next === null){
     return head;
   }   let newHead = reverse(head.next);
@@ -107,10 +107,52 @@ function reverse(head) {
 
 console.log('reverse, reverse! ', reverse(testList.head));
 
-
 //6 - 3rd from the end
+testList = main();
+
+function thirdFromEnd(list) {
+  let length = size(list);
+  console.log(length);
+  let currentNode = list.head;
+  if (length < 3) {
+    return 'Linked list is too short!';
+  }
+  for (let i = 0; i < length - 3; i++) {
+    currentNode = currentNode.next;
+  }
+  console.log('3rd from end: ', currentNode.value);
+  return currentNode;
+}
+
+thirdFromEnd(testList);
 
 //7 - Middle of a list
+function middleOfList(list) {
+  let currNode = list.head;
+  let length = size(list);
+  let midpoint;
+  let after;
+  if (length % 2 === 0) {
+    midpoint = length / 2;
+    for (let i = 1; i < midpoint; i++) {
+      
+      currNode = currNode.next;
+    }
+    after = currNode.next;
+    return currNode.value + ' & ' + after.value;
+  }
+
+  if (length % 2 === 1) {
+    midpoint = Math.round(length/2);
+    for (let i = 1; i < midpoint; i++) {
+      currNode = currNode.next;
+    }
+    return currNode.value;
+  }
+
+}
+
+console.log('middle elements of list: ', middleOfList(testList));
 
 //8 - Cycle in a list
 
