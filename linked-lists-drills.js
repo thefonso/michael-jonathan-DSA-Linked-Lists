@@ -4,6 +4,29 @@ const LL = require('./linked-lists');
 //SEE LINKED-LISTS.JS//
 
 //2 - Create a singly linked list
+function main() {
+  let SLL = new LL();
+
+  // SLL.insertLast('Apollo');
+  // SLL.insertLast('Boomer');
+  SLL.insertLast('Helo');
+  SLL.insertLast('Husker');
+  SLL.insertLast('Starbuck');
+  // console.log(SLL);
+  // SLL.insertLast('Tauhida');
+  // console.log(SLL.head.value);
+  // SLL.remove('squirrel');
+  // SLL.remove('Apollo');
+  // console.log('should be boomer: ', SLL.head.value);
+
+  // SLL.insertBefore('Athena', 'Boomer');
+  // console.log('should be athena: ', SLL.head.value);
+
+  SLL.insertAfter('Hotdog', 'Helo');
+  console.log(SLL);
+}
+
+main();
 
 //3 - Supplemental functions for a linked list
 function display(list) {

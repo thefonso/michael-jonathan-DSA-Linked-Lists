@@ -23,9 +23,15 @@ class LinkedList {
   }
 
   insertBefore(item, node) {
+    //if list is empy
     if (this.head === null) {
       this.insertFirst(item);
     }
+    //if item to insert before is head
+    if (this.head.value === node) {
+      this.insertFirst(item);
+    }
+
     let after = node;
     let tempNode = this.head;
 
@@ -40,18 +46,27 @@ class LinkedList {
     if (this.head === null) {
       this.insertFirst(item);
     }  
-    //the input value will be the node before insertion
-    let before = node;
     //the value currently after the node where insertion is to occur
-    let after = node.next;
+    let after;
     //start at the head
     let tempNode = this.head;
+    console.log('head: ', tempNode);
 
-    while(tempNode.value !== before) {
+    while(tempNode.next !== null) {
+      if(tempNode.value === node) {
+        return;
+      }
       tempNode = tempNode.next;
+      console.log('current node: ', tempNode);
+      // after = tempNode.next;
     }
+    after = tempNode.next;
+    console.log(after);
     //make the next node the item to be inserted which links to the previously next node
-    tempNode.next = new _Node(item, after);
+    // console.log(after.value);
+    // console.log(tempNode.value);
+    tempNode.next = new _Node(item, after.value);
+    // console.log(tempNode.next.value);
   }
 
   insertAt(item, position) {
