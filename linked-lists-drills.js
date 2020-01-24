@@ -194,8 +194,8 @@ function dub() {
   dubL.insertFirst('Aquaria');
   dubL.insertLast('Caprica');
   dubL.insertLast('Gemenon');
-  // dubL.insertLast('Picon');
-  // dubL.insertLast('Sagittaron');
+  dubL.insertLast('Picon');
+  dubL.insertLast('Sagittaron');
   dubL.insertAfter('Tauron', 'Caprica');
   // dubL.remove('Picon');
   return dubL;

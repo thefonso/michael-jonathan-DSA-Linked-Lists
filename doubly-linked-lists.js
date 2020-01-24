@@ -20,7 +20,6 @@ class DoublyLinkedList {
         tempNode = tempNode.next;
       }
       prevNode = tempNode;
-      console.log(prevNode);
       tempNode.next = new _doubleNode(item, null, prevNode);
       this.tail = tempNode.next;
     }
@@ -64,17 +63,15 @@ class DoublyLinkedList {
       tempNode = tempNode.next;
     }
     before = tempNode;
-
+    //edge case - trying to add something after the tail:
     if(this.tail === before) {
-      after = null;
-      this.tail = new _doubleNode(item,after,before); 
-      before.next = this.tail;
+      this.insertLast(item);
     } else {
       after = tempNode.next;
       before.next = new _doubleNode(item, before.next, before);
-      after.before = before.next;
+      after.prev = before.next;
+      console.log(`Adding new node ${item} after ${before.value} and ${after.value}`);
     }
-    console.log(`Adding new node ${item} between ${before.value} and ${after.value}`);
   }
 
   insertAt(item, position) {
